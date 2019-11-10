@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/newsOptionFragment">
+
+    <fragment
+        android:id="@+id/newsOptionFragment"
+        android:name="com.adarsh.newsappkotlin.ui.news.NewsOptionFragment"
+        android:label="fragment_news_option"
+        tools:layout="@layout/fragment_news_option">
+        <action
+            android:id="@+id/action_newsOptionFragment_to_newsListFragment"
+            app:destination="@id/newsListFragment" />
+        <action
+            android:id="@+id/action_newsOptionFragment_to_indianNewsListFragment"
+            app:destination="@id/indianNewsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsListFragment"
+        android:name="com.adarsh.newsappkotlin.ui.news.google.GoogleNewsListFragment"
+        android:label="fragment_news_list"
+        tools:layout="@layout/fragment_google_news_list">
+        <argument
+            android:name="googleNewsItem"
+            app:argType="com.adarsh.newsappkotlin.api.GoogleNewsDetail" />
+        <action
+            android:id="@+id/action_newsListFragment_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsDetailFragment"
+        android:name="com.adarsh.newsappkotlin.ui.news.google.GoogleNewsDetailFragment"
+        android:label="fragment_news_detail"
+        tools:layout="@layout/fragment_google_news_detail">
+        <argument
+            android:name="googleNewsItem"
+            app:argType="com.adarsh.newsappkotlin.api.GoogleNewsDetail" />
+    </fragment>
+    <fragment
+        android:id="@+id/indianNewsListFragment"
+        android:name="com.adarsh.newsappkotlin.ui.news.indian.IndianNewsListFragment"
+        android:label="fragment_indian_news_list"
+        tools:layout="@layout/fragment_indian_news_list">
+        <argument
+            android:name="indianNewsDetail"
+            app:argType="com.adarsh.newsappkotlin.api.IndianNewsDetail" />
+        <action
+            android:id="@+id/action_indianNewsListFragment_to_indianNewsDetailFragment"
+            app:destination="@id/indianNewsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/indianNewsDetailFragment"
+        android:name="com.adarsh.newsappkotlin.ui.news.indian.IndianNewsDetailFragment"
+        android:label="fragment_indian_news_detail"
+        tools:layout="@layout/fragment_indian_news_detail">
+        <argument
+            android:name="indianNewsDetail"
+            app:argType="com.adarsh.newsappkotlin.api.IndianNewsDetail" />
+    </fragment>
+</navigation>

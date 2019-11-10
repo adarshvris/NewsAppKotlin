@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.adarsh.newsappkotlin.extension.CalendarExtKt" />
+
+        <variable
+            name="inidanNewsDetail"
+            type="com.adarsh.newsappkotlin.api.IndianNewsDetail" />
+
+        <variable
+            name="onClickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/list_item_height"
+            android:layout_margin="@dimen/spacing_medium"
+            android:elevation="@dimen/spacing_small"
+            android:onClick="@{onClickListener}"
+            app:cardCornerRadius="@dimen/spacing_xsmall"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:cardBackgroundColor="@color/theme">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivBackground"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:foreground="@drawable/foreground_gradient"
+                android:scaleType="centerCrop"
+                app:loadImage="@{inidanNewsDetail.imageUrl}"
+                app:srcCompat="@drawable/default_thumbnail"
+                tools:ignore="UnusedAttribute" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:layout_marginEnd="@dimen/spacing_medium"
+                android:layout_marginBottom="48dp"
+                android:text="@{inidanNewsDetail.title}"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_medium"
+                android:textStyle="bold"
+                tools:text="Hello World" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="@dimen/spacing_medium">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvAuthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/spacing_small"
+                    android:text="@{inidanNewsDetail.author}"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="italic"
+                    tools:text="Hello World" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvCreatedDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/spacing_small"
+                    android:text="@{CalendarExtKt.getReadableDate(inidanNewsDetail.publishedAt)}"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="italic"
+                    tools:text="Hello World" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

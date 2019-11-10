@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.adarsh.newsappkotlin.extension.CalendarExtKt" />
+
+        <variable
+            name="indiaNewsDetail"
+            type="com.adarsh.newsappkotlin.api.IndianNewsDetail" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.news.google.GoogleNewsDetailFragment">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foreground="@drawable/foreground_gradient"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadImage="@{indiaNewsDetail.imageUrl}"
+            app:srcCompat="@drawable/default_thumbnail"
+            tools:ignore="UnusedAttribute" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_large"
+            android:text="@{indiaNewsDetail.title}"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_small"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tvDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="HELLO WORLD" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_large"
+            android:gravity="start"
+            android:text="@{indiaNewsDetail.author}"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_xsmall"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tvContent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="HELLO WORLD" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_large"
+            android:text="@{CalendarExtKt.getReadableDate(indiaNewsDetail.publishedAt)}"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_xsmall"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tvContent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="HELLO WORLD" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_large"
+            android:text="@{indiaNewsDetail.content}"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/text_xsmall"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="HELLO WORLD" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
