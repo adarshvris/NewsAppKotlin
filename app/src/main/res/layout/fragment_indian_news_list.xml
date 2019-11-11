@@ -9,15 +9,25 @@
         android:background="@color/theme"
         tools:context=".ui.news.indian.IndianNewsListFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvIndianRecyclerView"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srlRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvIndianRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@id/srlRefresh"
+                app:layout_constraintEnd_toEndOf="@id/srlRefresh"
+                app:layout_constraintStart_toStartOf="@id/srlRefresh"
+                app:layout_constraintTop_toTopOf="@id/srlRefresh" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <LinearLayout
             android:id="@+id/llLoading"

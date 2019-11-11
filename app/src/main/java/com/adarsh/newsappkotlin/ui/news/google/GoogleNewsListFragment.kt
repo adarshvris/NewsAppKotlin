@@ -30,7 +30,10 @@ import com.adarsh.newsappkotlin.util.isNetworkAvailable
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.fragment_google_news_list.*
+import kotlinx.android.synthetic.main.fragment_google_news_list.btnRetry
 import kotlinx.android.synthetic.main.fragment_google_news_list.llLoading
+import kotlinx.android.synthetic.main.fragment_google_news_list.srlRefresh
+import kotlinx.android.synthetic.main.fragment_indian_news_list.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -92,12 +95,17 @@ class GoogleNewsListFragment : Fragment(), InjectableInterface {
             scheduleGoogleNewsListWorkManager()
         }
 
+        srlRefresh.setOnRefreshListener {
+            getGoogleNewsList()
+        }
+
     }
 
     private fun getGoogleNewsList(isOnline: Boolean = true) {
         CoroutineScope(Dispatchers.Main).launch {
             newsVM.getGoogleNewsList(GOOGLE_SOURCE, isOnline)
                 .observe(this@GoogleNewsListFragment, Observer {
+                    srlRefresh.isRefreshing = false
                     when (it.status) {
                         Resource.Status.LOADING -> {
                             llLoading.visibility = VISIBLE

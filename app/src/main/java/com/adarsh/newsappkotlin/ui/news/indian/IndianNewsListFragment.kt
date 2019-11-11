@@ -9,31 +9,22 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.work.WorkInfo
 
 import com.adarsh.newsappkotlin.R
-import com.adarsh.newsappkotlin.api.GoogleNewsDetail
 import com.adarsh.newsappkotlin.api.IndianNewsDetail
-import com.adarsh.newsappkotlin.constants.GOOGLE_NEWS_LIST
-import com.adarsh.newsappkotlin.constants.GOOGLE_SOURCE
-import com.adarsh.newsappkotlin.constants.INDIAN_NEWS_LIST
 import com.adarsh.newsappkotlin.constants.SOURCE
 import com.adarsh.newsappkotlin.databinding.FragmentIndianNewsListBinding
-import com.adarsh.newsappkotlin.db.dao.NewsDao
 import com.adarsh.newsappkotlin.di.InjectableInterface
-import com.adarsh.newsappkotlin.extension.fromJson
 import com.adarsh.newsappkotlin.extension.toast
 import com.adarsh.newsappkotlin.extension.vmProvider
 import com.adarsh.newsappkotlin.ui.adapters.IndianNewsAdapter
 import com.adarsh.newsappkotlin.ui.vm.NewsVM
 import com.adarsh.newsappkotlin.util.Resource
 import com.adarsh.newsappkotlin.util.isNetworkAvailable
-import com.google.gson.Gson
-import kotlinx.android.synthetic.main.fragment_google_news_list.*
 import kotlinx.android.synthetic.main.fragment_indian_news_list.*
 import kotlinx.android.synthetic.main.fragment_indian_news_list.btnRetry
 import kotlinx.android.synthetic.main.fragment_indian_news_list.llLoading
@@ -93,11 +84,16 @@ class IndianNewsListFragment : Fragment(), InjectableInterface {
         btnRetry.setOnClickListener {
             scheduleIndianNewsListWorkManager()
         }
+
+        srlRefresh.setOnRefreshListener {
+            getIndianNewsDetail()
+        }
     }
 
     private fun getIndianNewsDetail(isOnline: Boolean = true) {
         CoroutineScope(Dispatchers.Main).launch {
             newsVM.getIndianNewsList("in", isOnline).observe(this@IndianNewsListFragment, Observer {
+                srlRefresh.isRefreshing = false
                 when (it.status) {
                     Resource.Status.LOADING -> {
                         llLoading.visibility = VISIBLE
